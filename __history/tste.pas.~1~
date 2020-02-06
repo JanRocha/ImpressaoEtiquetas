@@ -1,0 +1,10 @@
+unit tste;
+
+interface
+  type
+  teste= class
+
+  end;
+implementation
+
+end.

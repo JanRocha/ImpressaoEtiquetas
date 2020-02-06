@@ -1,0 +1,41 @@
+unit Uprodutos;
+
+interface
+
+uses Generics.Collections;
+
+type
+
+TItem = class
+private
+  FCodigo: Extended;
+  FData_validade: String;
+  FDescricao: String;
+  FPreco: Extended;
+public
+  property codigo: Extended read FCodigo write FCodigo;
+  property data_validade: String read FData_validade write FData_validade;
+  property descricao: String read FDescricao write FDescricao;
+  property preco: Extended read FPreco write FPreco;
+end;
+
+TProduto = class
+private
+  FItems: TList<TItem>;
+public
+  property Items: TList<TItem> read FItems write FItems;
+  destructor Destroy; override;
+
+end;
+
+implementation
+
+{ TProduto }
+
+destructor TProduto.Destroy;
+begin
+
+  inherited;
+end;
+
+end.

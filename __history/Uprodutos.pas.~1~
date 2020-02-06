@@ -1,0 +1,72 @@
+unit Uprodutos;
+
+interface
+
+uses Generics.Collections;
+
+type
+
+TItemClass = class
+private
+  FCodigo: Extended;
+  FData_validade: String;
+  FDescricao: String;
+  FPreco: Extended;
+public
+  property codigo: Extended read FCodigo write FCodigo;
+  property data_validade: String read FData_validade write FData_validade;
+  property descricao: String read FDescricao write FDescricao;
+  property preco: Extended read FPreco write FPreco;
+  function ToJsonString: string;
+  class function FromJsonString(AJsonString: string): TItemClass;
+end;
+
+TRootClass = class
+private
+  FItems: TArray<TItemClass>;
+public
+  property Items: TArray<TItemClass> read FItems write FItems;
+  destructor Destroy; override;
+  function ToJsonString: string;
+  class function FromJsonString(AJsonString: string): TRootClass;
+end;
+
+implementation
+
+{TItemClass}
+
+
+function TItemClass.ToJsonString: string;
+begin
+  result := TJson.ObjectToJsonString(self);
+end;
+
+class function TItemClass.FromJsonString(AJsonString: string): TItemClass;
+begin
+  result := TJson.JsonToObject<TItemClass>(AJsonString)
+end;
+
+{TRootClass}
+
+destructor TRootClass.Destroy;
+var
+  LItemsItem: TItemClass;
+begin
+
+ for LItemsItem in FItems do
+   LItemsItem.Free;
+
+  inherited;
+end;
+
+function TRootClass.ToJsonString: string;
+begin
+  result := TJson.ObjectToJsonString(self);
+end;
+
+class function TRootClass.FromJsonString(AJsonString: string): TRootClass;
+begin
+  result := TJson.JsonToObject<TRootClass>(AJsonString)
+end;
+
+end.
