@@ -22,8 +22,6 @@ object Form1: TForm1
     Height = 287
     Align = alClient
     TabOrder = 0
-    ExplicitTop = 80
-    ExplicitHeight = 176
   end
   object MainMenu1: TMainMenu
     Left = 336
@@ -32,7 +30,7 @@ object Form1: TForm1
       Caption = 'Cadastro'
       object MenuProdutos: TMenuItem
         AutoCheck = True
-        Caption = 'AbrirCadastro'
+        Caption = 'Abrir Cadastro'
         OnClick = MenuProdutosClick
       end
     end

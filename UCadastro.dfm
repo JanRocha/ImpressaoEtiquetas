@@ -11,9 +11,11 @@ object frmCadastro: TfrmCadastro
   Font.Height = -13
   Font.Name = 'Tahoma'
   Font.Style = []
+  KeyPreview = True
   OldCreateOrder = False
   Position = poDefault
   WindowState = wsMaximized
+  OnDestroy = FormDestroy
   OnShow = FormShow
   PixelsPerInch = 96
   TextHeight = 16
@@ -38,6 +40,8 @@ object frmCadastro: TfrmCadastro
         Top = 21
         Width = 245
         Height = 24
+        CharCase = ecUpperCase
+        Enabled = False
         TabOrder = 0
       end
     end
@@ -53,7 +57,9 @@ object frmCadastro: TfrmCadastro
         Top = 21
         Width = 88
         Height = 24
+        Enabled = False
         TabOrder = 0
+        OnKeyPress = edtCodigoKeyPress
       end
     end
     object GroupBox3: TGroupBox
@@ -68,7 +74,9 @@ object frmCadastro: TfrmCadastro
         Top = 21
         Width = 98
         Height = 24
+        Enabled = False
         TabOrder = 0
+        OnKeyPress = edtCodigoKeyPress
       end
     end
     object GroupBox4: TGroupBox
@@ -85,19 +93,25 @@ object frmCadastro: TfrmCadastro
         Height = 24
         Date = 43863.813479606480000000
         Time = 43863.813479606480000000
+        Enabled = False
         TabOrder = 0
       end
     end
-    object StringGrid1: TStringGrid
+    object SG: TStringGrid
       Left = 2
       Top = 61
       Width = 592
       Height = 169
       Align = alBottom
-      ColCount = 4
       FixedCols = 0
+      RowCount = 1
+      FixedRows = 0
+      Options = [goRangeSelect, goRowSelect]
       TabOrder = 4
+      OnSelectCell = SGSelectCeell
+      ExplicitLeft = 1
       ColWidths = (
+        64
         64
         64
         64
@@ -110,7 +124,9 @@ object frmCadastro: TfrmCadastro
       Height = 41
       Align = alBottom
       TabOrder = 5
-      object BitBtn1: TBitBtn
+      ExplicitLeft = 479
+      ExplicitTop = 254
+      object btnNovo: TBitBtn
         Left = 291
         Top = 1
         Width = 75
@@ -120,8 +136,9 @@ object frmCadastro: TfrmCadastro
         DoubleBuffered = True
         ParentDoubleBuffered = False
         TabOrder = 0
+        OnClick = btnNovoClick
       end
-      object BitBtn2: TBitBtn
+      object btnExcluir: TBitBtn
         Left = 441
         Top = 1
         Width = 75
@@ -129,10 +146,14 @@ object frmCadastro: TfrmCadastro
         Align = alRight
         Caption = 'Excluir'
         DoubleBuffered = True
+        Enabled = False
         ParentDoubleBuffered = False
         TabOrder = 1
+        OnClick = btnExcluirClick
+        ExplicitLeft = 447
+        ExplicitTop = 6
       end
-      object BitBtn3: TBitBtn
+      object btnGravar: TBitBtn
         Left = 516
         Top = 1
         Width = 75
@@ -140,10 +161,12 @@ object frmCadastro: TfrmCadastro
         Align = alRight
         Caption = 'Gravar'
         DoubleBuffered = True
+        Enabled = False
         ParentDoubleBuffered = False
         TabOrder = 2
+        OnClick = btnGravarClick
       end
-      object BitBtn4: TBitBtn
+      object btnEditar: TBitBtn
         Left = 366
         Top = 1
         Width = 75
@@ -153,6 +176,9 @@ object frmCadastro: TfrmCadastro
         DoubleBuffered = True
         ParentDoubleBuffered = False
         TabOrder = 3
+        OnClick = btnEditarClick
+        ExplicitLeft = 372
+        ExplicitTop = 6
       end
     end
   end
