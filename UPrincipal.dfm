@@ -38,6 +38,7 @@ object Form1: TForm1
       Caption = 'Configura'#231#245'es'
       object MenuBalanca: TMenuItem
         Caption = 'Balan'#231'a'
+        OnClick = MenuBalancaClick
       end
       object MenuImpressora: TMenuItem
         Caption = 'Impressora'

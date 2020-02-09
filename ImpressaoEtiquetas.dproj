@@ -20,6 +20,7 @@
 			<Base>true</Base>
 		</PropertyGroup>
 		<PropertyGroup Condition="'$(Base)'!=''">
+			<DCC_UsePackage>vclx;vcl;vclimg;dbrtl;Rave77VCL;bdertl;rtl;vclactnband;xmlrtl;vcldb;vcldbx;vcltouch;dsnap;dsnapcon;TeeUI;TeeDB;Tee;vclib;ibxpress;adortl;IndyCore;IndySystem;IndyProtocols;inet;intrawebdb_100_140;Intraweb_100_140;VclSmp;vclie;websnap;webdsnap;inetdb;inetdbbde;inetdbxpress;soaprtl;vclribbon;dbexpress;DbxCommonDriver;DataSnapIndy10ServerTransport;DataSnapProviderClient;DbxClientDriver;DataSnapServer;DBXInterBaseDriver;DBXMySQLDriver;dbxcds;DBXFirebirdDriver;DBXSybaseASEDriver;DBXSybaseASADriver;DBXOracleDriver;DBXMSSQLDriver;DBXInformixDriver;DBXDb2Driver;frce;ACBr_Comum;ACBr_synapse;ACBr_OpenSSL;ACBr_Diversos;ACBr_Serial;ACBr_Convenio115;ACBr_LFD;ACBr_TXTComum;ACBr_EDI;ACBr_PCNComum;ACBr_PAF;ACBr_SEF2;ACBr_Sintegra;ACBr_SPED;ACBr_SPEDImportar;ACBR_DeSTDA;ACBr_Ponto;ACBr_LCDPR;ACBr_TCP;ACBr_Boleto;ACBr_MTER;ACBr_Integrador;ACBr_NFe;ACBr_DFeComum;ACBr_NFCeECFVirtual;ACBr_NFeDanfeESCPOS;ACBr_CTe;ACBr_NFSe;ACBr_MDFe;ACBr_GNRE;ACBre_Social;ACBr_Reinf;ACBr_SAT;ACBr_SATECFVirtual;ACBr_SATExtratoESCPOS;ACBr_SATWS;ACBr_BlocoX;ACBr_BPe;ACBr_BPeDabpeESCPOS;ACBr_ANe;ACBr_CIOT;ACBr_ONE;ACBr_TEFD;ACBr_NFeDanfeRL;ACBrDFeReportRL;ACBr_NFSeDanfseRL;ACBr_CTeDacteRL;ACBr_BoletoRL;ACBr_MDFeDamdfeRL;ACBr_SATExtratoRL;ACBr_GNREGuiaRL</DCC_UsePackage>
 			<DCC_DependencyCheckOutputName>ImpressaoEtiquetas.exe</DCC_DependencyCheckOutputName>
 			<DCC_ImageBase>00400000</DCC_ImageBase>
 			<DCC_UnitAlias>WinTypes=Windows;WinProcs=Windows;DbiTypes=BDE;DbiProcs=BDE;DbiErrs=BDE;$(DCC_UnitAlias)</DCC_UnitAlias>
@@ -51,6 +52,10 @@
 				<Form>frmCadastro</Form>
 			</DCCReference>
 			<DCCReference Include="Uprodutos.pas"/>
+			<DCCReference Include="UConfigBalanca.pas">
+				<Form>frmConfigBalanca</Form>
+			</DCCReference>
+			<DCCReference Include="UConfigBalancaINI.pas"/>
 			<BuildConfiguration Include="Base">
 				<Key>Base</Key>
 			</BuildConfiguration>
@@ -78,7 +83,7 @@
 						<Parameters Name="LoadUnspecifiedSymbols">False</Parameters>
 					</Parameters>
 					<VersionInfo>
-						<VersionInfo Name="IncludeVerInfo">False</VersionInfo>
+						<VersionInfo Name="IncludeVerInfo">True</VersionInfo>
 						<VersionInfo Name="AutoIncBuild">False</VersionInfo>
 						<VersionInfo Name="MajorVer">1</VersionInfo>
 						<VersionInfo Name="MinorVer">0</VersionInfo>
@@ -104,6 +109,12 @@
 						<VersionInfoKeys Name="ProductVersion">1.0.0.0</VersionInfoKeys>
 						<VersionInfoKeys Name="Comments"/>
 					</VersionInfoKeys>
+					<Excluded_Packages>
+						<Excluded_Packages Name="$(BDS)\bin\bcboffice2k140.bpl">Embarcadero C++Builder Office 2000 Servers Package</Excluded_Packages>
+						<Excluded_Packages Name="$(BDS)\bin\bcbofficexp140.bpl">Embarcadero C++Builder Office XP Servers Package</Excluded_Packages>
+						<Excluded_Packages Name="$(BDS)\bin\dcloffice2k140.bpl">Microsoft Office 2000 Sample Automation Server Wrapper Components</Excluded_Packages>
+						<Excluded_Packages Name="$(BDS)\bin\dclofficexp140.bpl">Microsoft Office XP Sample Automation Server Wrapper Components</Excluded_Packages>
+					</Excluded_Packages>
 				</Delphi.Personality>
 			</BorlandProject>
 			<ProjectFileVersion>12</ProjectFileVersion>

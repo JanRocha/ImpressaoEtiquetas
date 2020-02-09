@@ -2,7 +2,7 @@ unit UFuncoes;
 
 interface
 
-uses StrUtils, forms, SysUtils, classes, uLkJSON, IniFiles,rtti, TypInfo,
+uses StrUtils, forms, SysUtils, classes, uLkJSON, IniFiles, rtti, TypInfo,
   IdBaseComponent, IdComponent, IdTCPConnection, IdTCPClient, IdHTTP,
   xmldom, XMLIntf, StdCtrls, msxmldom, XMLDoc;
 
@@ -27,6 +27,8 @@ type
     function CarregarEmpresas(): TStringList;
     function XMLToClass(retorno: TObject; XML: TXMLDocument): TObject;
     function SerializarJsonObjeto(JSON: string; obj: TObject): TObject;
+    function SerializarINI(Arquivo, chave: string; obj: TObject): TObject;
+    function GravarINI(Arquivo, chave: string; obj: TObject): TObject;
     procedure GravarLog(msg: string);
     destructor Destroy; override;
   end;
@@ -167,23 +169,79 @@ begin
   Result := xTexto;
 end;
 
+function TFuncoes.GravarINI(Arquivo, chave: string; obj: TObject): TObject;
+var
+  Contexto: TRttiContext;
+  Tipo: TRttiType;
+  Propriedades, Propriedade: TRttiProperty;
+begin
+  Fini := TIniFile.Create(GetCurrentDir + '\' + Arquivo);
+  Tipo := Contexto.GetType(obj.ClassInfo);
+
+  for Propriedades in Tipo.GetProperties do
+  begin
+    case Propriedades.PropertyType.TypeKind of
+      tkInteger:
+        Fini.WriteInteger(chave, Propriedades.Name, Propriedades.GetValue(obj)
+            .AsInteger);
+      tkUString, tkLString, tkString, tkWString:
+        Fini.WriteString(chave, Propriedades.Name, Propriedades.GetValue(obj)
+            .AsString);
+      tkEnumeration:
+        Fini.WriteBool(chave, Propriedades.Name, Propriedades.GetValue(obj)
+            .AsBoolean);
+      tkFloat:
+        Fini.WriteFloat(chave, Propriedades.Name, Propriedades.GetValue(obj)
+            .AsExtended);
+    end;
+  end;
+  Result := obj;
+end;
+
+function TFuncoes.SerializarINI(Arquivo, chave: string; obj: TObject): TObject;
+var
+  Contexto: TRttiContext;
+  Tipo: TRttiType;
+  Propriedade: TRttiProperty;
+begin
+  if not(FileExists(Arquivo)) then
+    exit;
+  Fini := TIniFile.Create(Arquivo);
+  Tipo := Contexto.GetType(obj.ClassInfo);
+  for Propriedade in Tipo.GetProperties do
+  begin
+    case Propriedade.PropertyType.TypeKind of
+      tkInteger:
+        Propriedade.SetValue(obj, Fini.ReadInteger(chave, Propriedade.Name, 0));
+      tkUString, tkLString, tkString, tkWString:
+        Propriedade.SetValue(obj, Fini.ReadString(chave, Propriedade.Name, ''));
+      tkEnumeration:
+        Propriedade.SetValue(obj, Fini.ReadBool(chave, Propriedade.Name, False)
+          );
+      tkFloat:
+        Propriedade.SetValue(obj, Fini.ReadFloat(chave, Propriedade.Name, 0));
+    end;
+  end;
+  Result := obj;
+end;
+
 function TFuncoes.SerializarJsonObjeto(JSON: string; obj: TObject): TObject;
 var
   Contexto: TRttiContext;
   Tipo: TRttiType;
   Propriedade: TRttiProperty;
-  oJS:TlkJSONbase;
+  oJS: TlkJSONbase;
 begin
-  oJS:= TlkJSON.ParseText(JSON) as TlkJSONbase;
-// if  oJS.SelfType = jsList then
+  oJS := TlkJSON.ParseText(JSON) as TlkJSONbase;
+  // if  oJS.SelfType = jsList then
   Tipo := Contexto.GetType(obj.ClassInfo);
 
   for Propriedade in Tipo.GetProperties do
   begin
 
-   case Propriedade.PropertyType.TypeKind of
+    case Propriedade.PropertyType.TypeKind of
       tkInteger:
-        Propriedade.SetValue(obj,'');
+        Propriedade.SetValue(obj, '');
       tkUString, tkLString, tkString, tkWString:
         Propriedade.SetValue(obj, '');
       tkEnumeration:

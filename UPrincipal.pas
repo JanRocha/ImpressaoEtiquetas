@@ -4,7 +4,9 @@ interface
 
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, ExtCtrls, Menus, UCadastro, ActnList;
+  Dialogs, ExtCtrls, Menus,
+  UConfigBalanca,
+  UCadastro, ActnList;
 
 type
   TForm1 = class(TForm)
@@ -16,6 +18,7 @@ type
     MenuImpressora: TMenuItem;
     Panel1: TPanel;
     procedure MenuProdutosClick(Sender: TObject);
+    procedure MenuBalancaClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -28,6 +31,13 @@ var
 implementation
 
 {$R *.dfm}
+
+procedure TForm1.MenuBalancaClick(Sender: TObject);
+begin
+   frmConfigBalanca:=TfrmConfigBalanca.Create(nil);
+   frmConfigBalanca.Parent:= Panel1;
+   frmConfigBalanca.Show;
+end;
 
 procedure TForm1.MenuProdutosClick(Sender: TObject);
 begin

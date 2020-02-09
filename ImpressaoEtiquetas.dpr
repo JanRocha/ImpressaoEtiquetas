@@ -5,7 +5,9 @@ uses
   UPrincipal in 'UPrincipal.pas' {Form1},
   UFuncoes in 'UFuncoes.pas',
   UCadastro in 'UCadastro.pas' {frmCadastro},
-  Uprodutos in 'Uprodutos.pas';
+  Uprodutos in 'Uprodutos.pas',
+  UConfigBalanca in 'UConfigBalanca.pas' {frmConfigBalanca},
+  UConfigBalancaINI in 'UConfigBalancaINI.pas';
 
 {$R *.res}
 
