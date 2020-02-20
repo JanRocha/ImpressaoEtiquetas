@@ -38,7 +38,7 @@ type
   private
     Flista: TList<TProduto>;
     FLinha: Integer;
-    procedure CarregarGrid();
+    FProduto: TProduto;
     procedure Gravar();
   public
     { Public declarations }
@@ -70,7 +70,7 @@ begin
   begin
     SG.Cells[4, FLinha] := '1';
     Gravar();
-    CarregarGrid();
+    FProduto.CarregarGrid(SG);
   end;
   edtDescricao.Enabled := false;
   edtCodigo.Enabled := false;
@@ -126,46 +126,6 @@ begin
   btnEditar.Enabled := false;
 end;
 
-procedure TfrmCadastro.CarregarGrid;
-var
-  F: TFuncoes;
-  oJSList: TlkJSONlist;
-  js: TlkJSONobject;
-  i: Integer;
-  lstProdutos: TStringList;
-
-begin
-  SG.ColWidths[0] := 100;
-  SG.ColWidths[1] := 285;
-  SG.ColWidths[2] := 100;
-  SG.ColWidths[3] := 100;
-  SG.ColWidths[4] := 0;
-  SG.Cells[0, 0] := 'Codígo';
-  SG.Cells[1, 0] := 'Descrição';
-  SG.Cells[2, 0] := 'Preco';
-  SG.Cells[3, 0] := 'Validade';
-  if FileExists(GetCurrentDir + '\produtos.json') then
-  begin
-    lstProdutos := TStringList.Create;
-    lstProdutos.LoadFromFile(GetCurrentDir + '\produtos.json');
-    oJSList := TlkJSON.ParseText(lstProdutos.Text) as TlkJSONlist;
-    SG.RowCount := oJSList.Count + 1;
-    try
-      for i := 0 to oJSList.Count - 1 do
-      begin
-        js := oJSList.Child[i] as TlkJSONobject;
-        SG.Cells[0, i + 1] := js['codigo'].Value;
-        SG.Cells[1, i + 1] := js['descricao'].Value;
-        SG.Cells[2, i + 1] := js['preco'].Value;
-        SG.Cells[3, i + 1] := js['data_validade'].Value;
-      end;
-    finally
-      oJSList.Free;
-      lstProdutos.Free;
-    end;
-  end;
-end;
-
 procedure TfrmCadastro.edtCodigoKeyPress(Sender: TObject; var Key: Char);
 begin
   if not(Key in ['0' .. '9', Chr(8), Chr(46)]) then
@@ -175,11 +135,13 @@ end;
 procedure TfrmCadastro.FormDestroy(Sender: TObject);
 begin
   Flista.Free;
+  FProduto.Free;
 end;
 
 procedure TfrmCadastro.FormShow(Sender: TObject);
 begin
-  CarregarGrid();
+  FProduto:= TProduto.Create;
+  FProduto.CarregarGrid(SG,0);
 end;
 
 procedure TfrmCadastro.Gravar;

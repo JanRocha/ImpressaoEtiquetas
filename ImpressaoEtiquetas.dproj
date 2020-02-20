@@ -47,7 +47,6 @@
 			<DCCReference Include="UPrincipal.pas">
 				<Form>Form1</Form>
 			</DCCReference>
-			<DCCReference Include="UFuncoes.pas"/>
 			<DCCReference Include="UCadastro.pas">
 				<Form>frmCadastro</Form>
 			</DCCReference>
@@ -56,6 +55,12 @@
 				<Form>frmConfigBalanca</Form>
 			</DCCReference>
 			<DCCReference Include="UConfigBalancaINI.pas"/>
+			<DCCReference Include="UConfigImpressora.pas">
+				<Form>frmConfigImpressora</Form>
+			</DCCReference>
+			<DCCReference Include="UImprimirEtiqueta.pas">
+				<Form>frmImprimirEtiqueta</Form>
+			</DCCReference>
 			<BuildConfiguration Include="Base">
 				<Key>Base</Key>
 			</BuildConfiguration>

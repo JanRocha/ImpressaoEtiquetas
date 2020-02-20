@@ -26,6 +26,13 @@ object Form1: TForm1
   object MainMenu1: TMainMenu
     Left = 336
     Top = 208
+    object Etiqueta1: TMenuItem
+      Caption = 'Etiqueta'
+      object Imprimir1: TMenuItem
+        Caption = 'Imprimir'
+        OnClick = Imprimir1Click
+      end
+    end
     object MenuCadastro: TMenuItem
       Caption = 'Cadastro'
       object MenuProdutos: TMenuItem
@@ -42,6 +49,7 @@ object Form1: TForm1
       end
       object MenuImpressora: TMenuItem
         Caption = 'Impressora'
+        OnClick = MenuImpressoraClick
       end
     end
   end

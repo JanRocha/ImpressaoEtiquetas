@@ -109,7 +109,6 @@ object frmCadastro: TfrmCadastro
       Options = [goRangeSelect, goRowSelect]
       TabOrder = 4
       OnSelectCell = SGSelectCeell
-      ExplicitLeft = 1
       ColWidths = (
         64
         64
@@ -124,8 +123,6 @@ object frmCadastro: TfrmCadastro
       Height = 41
       Align = alBottom
       TabOrder = 5
-      ExplicitLeft = 479
-      ExplicitTop = 254
       object btnNovo: TBitBtn
         Left = 291
         Top = 1
@@ -150,8 +147,6 @@ object frmCadastro: TfrmCadastro
         ParentDoubleBuffered = False
         TabOrder = 1
         OnClick = btnExcluirClick
-        ExplicitLeft = 447
-        ExplicitTop = 6
       end
       object btnGravar: TBitBtn
         Left = 516
@@ -177,8 +172,6 @@ object frmCadastro: TfrmCadastro
         ParentDoubleBuffered = False
         TabOrder = 3
         OnClick = btnEditarClick
-        ExplicitLeft = 372
-        ExplicitTop = 6
       end
     end
   end
