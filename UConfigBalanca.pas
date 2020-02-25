@@ -56,7 +56,6 @@ type
   private
     FFuncao: TFuncoes;
     FConfigBalanca: TConfigBalancaINI;
-    Function Converte(cmd: String): String;
   public
     { public declarations }
   end;
@@ -71,28 +70,12 @@ implementation
 Uses
   typinfo, ACBrUtil;
 
-function TfrmConfigBalanca.Converte(cmd: String): String;
-var
-  A: Integer;
-begin
-  Result := '';
-  For A := 1 to length(cmd) do
-  begin
-    if not(cmd[A] in ['A' .. 'Z', 'a' .. 'z', '0' .. '9', ' ', '.', ',', '/',
-      '?', '<', '>', ';', ':', ']', '[', '{', '}', '\', '|', '=', '+', '-',
-      '_', ')', '(', '*', '&', '^', '%', '$', '#', '@', '!', '~']) then
-      Result := Result + '#' + IntToStr(ord(cmd[A])) + ' '
-    else
-      Result := Result + cmd[A] + ' ';
-  end;
-end;
-
 procedure TfrmConfigBalanca.ACBrBAL1LePeso(Peso: Double; Resposta: AnsiString);
 var
   valid: Integer;
 begin
   sttPeso.Caption := formatFloat('##0.000', Peso);
-  sttResposta.Caption := Converte(Resposta);
+  sttResposta.Caption := FFuncao.Converte(Resposta);
 
   if Peso > 0 then
     Memo1.Lines.Text := 'Leitura OK !'
@@ -201,7 +184,14 @@ begin
   cmbBalanca.Items.Clear;
   For I := Low(TACBrBALModelo) to High(TACBrBALModelo) do
     cmbBalanca.Items.Add(GetEnumName(TypeInfo(TACBrBALModelo), Integer(I)));
-  cmbBalanca.ItemIndex := 0;
+  cmbBalanca.ItemIndex := FConfigBalanca.Modelo;
+  cmbPortaSerial.ItemIndex:= cmbBalanca.Items.IndexOf(FConfigBalanca.Porta);
+  cmbBaudRate.ItemIndex:= FConfigBalanca.BaudRate;
+  cmbDataBits.ItemIndex:= FConfigBalanca.BaudRate;
+  cmbHandShaking.ItemIndex:= FConfigBalanca.Handshaking;
+  cmbParity.ItemIndex:= FConfigBalanca.Parity;
+  cmbStopBits.ItemIndex:= FConfigBalanca.StopBits;
+  chbMonitorar.Checked:= FConfigBalanca.MonitorarBalanca;
 end;
 
 procedure TfrmConfigBalanca.FormDestroy(Sender: TObject);

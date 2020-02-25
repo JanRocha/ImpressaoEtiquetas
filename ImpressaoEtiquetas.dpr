@@ -8,7 +8,8 @@ uses
   UConfigBalanca in 'UConfigBalanca.pas' {frmConfigBalanca},
   UConfigBalancaINI in 'UConfigBalancaINI.pas',
   UConfigImpressora in 'UConfigImpressora.pas' {frmConfigImpressora},
-  UImprimirEtiqueta in 'UImprimirEtiqueta.pas' {frmImprimirEtiqueta};
+  UImprimirEtiqueta in 'UImprimirEtiqueta.pas' {frmImprimirEtiqueta},
+  UConfigImpressoraINI in 'UConfigImpressoraINI.pas';
 
 {$R *.res}
 

@@ -30,6 +30,7 @@ type
     function SerializarINI(Arquivo, chave: string; obj: TObject): TObject;
     function GravarINI(Arquivo, chave: string; obj: TObject): TObject;
     procedure GravarLog(msg: string);
+    Function Converte( cmd : String) : String;
     destructor Destroy; override;
   end;
 
@@ -101,6 +102,23 @@ begin
 
 end;
 
+function TFuncoes.Converte(cmd: String): String;
+var A : Integer ;
+begin
+  Result := '' ;
+  For A := 1 to length( cmd ) do
+  begin
+     if not (cmd[A] in ['A'..'Z','a'..'z','0'..'9',
+                        ' ','.',',','/','?','<','>',';',':',']','[','{','}',
+                        '\','|','=','+','-','_',')','(','*','&','^','%','$',
+                        '#','@','!','~' ]) then
+        Result := Result + '#' + IntToStr(ord( cmd[A] )) + ' '
+     else
+        Result := Result + cmd[A] + ' ';
+  end ;
+
+end;
+
 destructor TFuncoes.Destroy;
 begin
   FidHTTP.Free;
@@ -122,8 +140,7 @@ begin
   nome := Copy(nome, 0, i - 4);
   nome := FormatDateTime('yyyy-mm-dd', now) + nome;
   try
-    s := GetCurrentDir + '\Logs\' + FormatDateTime('dd-mm-yyy', now)
-      + '_SAT.LOG';
+    s := GetCurrentDir + '\' + FormatDateTime('dd-mm-yyy', now) + '.LOG';
     AssignFile(arq, s);
     if FileExists(s) then
     begin
@@ -206,7 +223,7 @@ var
 begin
   if not(FileExists(Arquivo)) then
     exit;
-  Fini := TIniFile.Create(Arquivo);
+  Fini := TIniFile.Create(getcurrentdir+'\'+ Arquivo);
   Tipo := Contexto.GetType(obj.ClassInfo);
   for Propriedade in Tipo.GetProperties do
   begin
@@ -222,7 +239,7 @@ begin
         Propriedade.SetValue(obj, Fini.ReadFloat(chave, Propriedade.Name, 0));
     end;
   end;
-  Result := obj;
+  Result:= obj;
 end;
 
 function TFuncoes.SerializarJsonObjeto(JSON: string; obj: TObject): TObject;

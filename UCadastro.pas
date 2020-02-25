@@ -19,13 +19,13 @@ type
     GroupBox3: TGroupBox;
     edtValorUnitario: TEdit;
     GroupBox4: TGroupBox;
-    edtValidade: TDateTimePicker;
     SG: TStringGrid;
     Panel2: TPanel;
     btnNovo: TBitBtn;
     btnExcluir: TBitBtn;
     btnGravar: TBitBtn;
     btnEditar: TBitBtn;
+    edtDias: TEdit;
     procedure FormShow(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
     procedure btnGravarClick(Sender: TObject);
@@ -39,6 +39,7 @@ type
     Flista: TList<TProduto>;
     FLinha: Integer;
     FProduto: TProduto;
+    FEditar: boolean;
     procedure Gravar();
   public
     { Public declarations }
@@ -53,15 +54,16 @@ implementation
 
 procedure TfrmCadastro.btnEditarClick(Sender: TObject);
 begin
-  edtDescricao.Enabled := true;
-  edtCodigo.Enabled := true;
+  FEditar                  := true;
+  edtDescricao.Enabled     := true;
+  edtCodigo.Enabled        := true;
   edtValorUnitario.Enabled := true;
-  edtValidade.Enabled := true;
+  edtDias.Enabled          := true;
+  btnNovo.Enabled          := false;
+  btnEditar.Enabled        := false;
+  btnGravar.Enabled        := true;
+  btnExcluir.Enabled       := true;
   edtDescricao.SetFocus;
-  btnNovo.Enabled := false;
-  btnEditar.Enabled := false;
-  btnGravar.Enabled := true;
-  btnExcluir.Enabled := true;
 end;
 
 procedure TfrmCadastro.btnExcluirClick(Sender: TObject);
@@ -72,63 +74,91 @@ begin
     Gravar();
     FProduto.CarregarGrid(SG);
   end;
-  edtDescricao.Enabled := false;
-  edtCodigo.Enabled := false;
+  edtDescricao.Enabled     := false;
+  edtCodigo.Enabled        := false;
   edtValorUnitario.Enabled := false;
-  edtValidade.Enabled := false;
-  btnNovo.Enabled := true;
-  btnEditar.Enabled := true;
-  btnGravar.Enabled := false;
-  btnExcluir.Enabled := false;
-  edtDescricao.Text := '';
-  edtCodigo.Text := '';
-  edtValorUnitario.Text := '';
-  edtValidade.DateTime := now;
+  edtDias.Enabled          := false;
+  btnNovo.Enabled          := true;
+  btnEditar.Enabled        := true;
+  btnGravar.Enabled        := false;
+  btnExcluir.Enabled       := false;
+  edtDescricao.Text        := '';
+  edtCodigo.Text           := '';
+  edtValorUnitario.Text    := '';
+  edtDias.text             := '';
 end;
 
 procedure TfrmCadastro.btnGravarClick(Sender: TObject);
+var i:integer;
 begin
-  SG.Cells[0, SG.RowCount] := edtCodigo.Text;
-  SG.Cells[1, SG.RowCount] := edtDescricao.Text;
-  SG.Cells[2, SG.RowCount] := edtValorUnitario.Text;
-  SG.Cells[3, SG.RowCount] := DateToStr(edtValidade.Date);
+  if FEditar then
+  begin
+    SG.Cells[0, FLinha ] := edtCodigo.Text;
+    SG.Cells[1, FLinha ] := edtDescricao.Text;
+    SG.Cells[2 ,FLinha ] := edtValorUnitario.Text;
+    SG.Cells[3, FLinha ] := edtDias.Text;
+  end
+  else
+  begin
+    for i := 1 to SG.RowCount do
+    begin
+       if trim(SG.Cells[0,i]) = trim(edtCodigo.Text) then
+       begin
+          Application.MessageBox('Codigo já em uso verifique','Atenção');
+          edtCodigo.SetFocus;
+          Exit;
+       end;
+       if trim(SG.Cells[1,i]) = trim(edtDescricao.Text) then
+       begin
+          Application.MessageBox('descrição já em uso verifique','Atenção');
+          edtDescricao.SetFocus;
+          Exit;
+       end;
+    end;
+    SG.Cells[0, SG.RowCount] := edtCodigo.Text;
+    SG.Cells[1, SG.RowCount] := edtDescricao.Text;
+    SG.Cells[2, SG.RowCount] := edtValorUnitario.Text;
+    SG.Cells[3, SG.RowCount] := edtDias.Text;
+    SG.RowCount              := SG.RowCount + 1;
+  end;
   Application.ProcessMessages;
   Gravar();
-  SG.RowCount := SG.RowCount + 1;
-  edtDescricao.Enabled := false;
-  edtCodigo.Enabled := false;
+
+  edtDescricao.Enabled     := false;
+  edtCodigo.Enabled        := false;
   edtValorUnitario.Enabled := false;
-  edtValidade.Enabled := false;
-  btnNovo.Enabled := true;
-  btnEditar.Enabled := true;
-  btnGravar.Enabled := false;
-  btnExcluir.Enabled := false;
-  edtDescricao.Text := '';
-  edtCodigo.Text := '';
-  edtValorUnitario.Text := '';
-  edtValidade.DateTime := now;
+  edtDias.Enabled          := false;
+  btnNovo.Enabled          := true;
+  btnEditar.Enabled        := true;
+  btnGravar.Enabled        := false;
+  btnExcluir.Enabled       := false;
+  edtDescricao.Text        := '';
+  edtCodigo.Text           := '';
+  edtValorUnitario.Text    := '';
+  edtDias.text             := '';
 end;
 
 procedure TfrmCadastro.btnNovoClick(Sender: TObject);
 begin
-  edtDescricao.Text := '';
-  edtCodigo.Text := '';
-  edtValorUnitario.Text := '';
-  edtValidade.DateTime := now;
-  edtDescricao.Enabled := true;
-  edtCodigo.Enabled := true;
+  FEditar                  := false;
+  edtDescricao.Text        := '';
+  edtCodigo.Text           := '';
+  edtValorUnitario.Text    := '';
+  edtDias.text             := '';
+  edtDescricao.Enabled     := true;
+  edtCodigo.Enabled        := true;
   edtValorUnitario.Enabled := true;
-  edtValidade.Enabled := true;
+  edtDias.Enabled          := true;
   edtCodigo.SetFocus;
-  btnNovo.Enabled := false;
-  btnEditar.Enabled := false;
-  btnGravar.Enabled := true;
-  btnEditar.Enabled := false;
+  btnNovo.Enabled          := false;
+  btnEditar.Enabled        := false;
+  btnGravar.Enabled        := true;
+  btnEditar.Enabled        := false;
 end;
 
 procedure TfrmCadastro.edtCodigoKeyPress(Sender: TObject; var Key: Char);
 begin
-  if not(Key in ['0' .. '9', Chr(8), Chr(46)]) then
+  if not(Key in ['0' .. '9', Chr(8), Chr(46), Chr(44)]) then
     Key := #0
 end;
 
@@ -152,7 +182,7 @@ var
   lstProdutos: TStringList;
 begin
   oJSList := TlkJSONlist.Create;
-  for i := 1 to SG.RowCount -1 do
+  for i := 1 to SG.RowCount  do
   begin
     if SG.Cells[4, i] <> '1' then
     begin
@@ -180,10 +210,10 @@ begin
   FLinha:= 0;
   if ARow > 0 then
   begin
-    edtCodigo.Text := SG.Cells[0, ARow];
-    edtDescricao.Text := SG.Cells[1, ARow];
+    edtCodigo.Text        := SG.Cells[0, ARow];
+    edtDescricao.Text     := SG.Cells[1, ARow];
     edtValorUnitario.Text := SG.Cells[2, ARow];
-    edtValidade.Date := StrToDateDef(SG.Cells[3, ARow], now);
+    edtDias.Text          := SG.Cells[3, ARow];
     FLinha := ARow;
   end;
 end;

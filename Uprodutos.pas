@@ -52,8 +52,12 @@ begin
   begin
     SG.ColWidths[0] := 100;
     SG.ColWidths[1] := 300;
+    SG.ColWidths[2] := 0;
+    SG.ColWidths[3] := 0;
     SG.Cells[0, 0] := 'Codígo';
     SG.Cells[1, 0] := 'Descrição';
+    SG.Cells[2, 0] := 'Preco';
+    SG.Cells[3, 0] := 'Validade';
   end;
   if FileExists(GetCurrentDir + '\produtos.json') then
   begin

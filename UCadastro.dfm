@@ -29,12 +29,12 @@ object frmCadastro: TfrmCadastro
     BevelOuter = bvLowered
     TabOrder = 0
     object GroupBox1: TGroupBox
-      Left = 106
+      Left = 105
       Top = 10
       Width = 256
       Height = 50
       Caption = 'Descri'#231#227'o'
-      TabOrder = 0
+      TabOrder = 1
       object edtDescricao: TEdit
         Left = 5
         Top = 21
@@ -46,12 +46,12 @@ object frmCadastro: TfrmCadastro
       end
     end
     object GroupBox2: TGroupBox
-      Left = 8
+      Left = 6
       Top = 10
       Width = 97
       Height = 50
       Caption = 'C'#243'digo'
-      TabOrder = 1
+      TabOrder = 0
       object edtCodigo: TEdit
         Left = 6
         Top = 21
@@ -86,15 +86,14 @@ object frmCadastro: TfrmCadastro
       Height = 50
       Caption = 'Data de Validade'
       TabOrder = 3
-      object edtValidade: TDateTimePicker
-        Left = 5
+      object edtDias: TEdit
+        Left = 6
         Top = 21
-        Width = 105
+        Width = 98
         Height = 24
-        Date = 43863.813479606480000000
-        Time = 43863.813479606480000000
         Enabled = False
         TabOrder = 0
+        OnKeyPress = edtCodigoKeyPress
       end
     end
     object SG: TStringGrid
@@ -160,6 +159,8 @@ object frmCadastro: TfrmCadastro
         ParentDoubleBuffered = False
         TabOrder = 2
         OnClick = btnGravarClick
+        ExplicitLeft = 522
+        ExplicitTop = 6
       end
       object btnEditar: TBitBtn
         Left = 366

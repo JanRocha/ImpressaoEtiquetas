@@ -75,8 +75,8 @@ object frmConfigBalanca: TfrmConfigBalanca
     OnClick = btnDesconectarClick
   end
   object btnLerPeso: TButton
-    Left = 398
-    Top = 252
+    Left = 393
+    Top = 254
     Width = 95
     Height = 32
     Caption = 'Ler Peso'
@@ -320,8 +320,8 @@ object frmConfigBalanca: TfrmConfigBalanca
     end
   end
   object Button1: TButton
-    Left = 492
-    Top = 252
+    Left = 494
+    Top = 254
     Width = 94
     Height = 32
     Caption = 'Gravar'
