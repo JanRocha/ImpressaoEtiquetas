@@ -127,7 +127,7 @@ begin
       ACBrETQ.ImprimirTexto(orNormal, '0', 15, 15, 21, 2, 'D. EMB. '+ FormatDateTime('dd.mm.yy',now ));
       ACBrETQ.ImprimirTexto(orNormal, '0', 15, 15, 23, 2, 'D. VAL. '+ FormatDateTime('dd.mm.yy',IncDay(now,StrToInt(FValidade )) ));
       //ACBrETQ.ImprimirTexto(orNormal, '0', 10, 10, 21, 2, 'data hora '+ FormatDateTime('hh:mm',now ));
-      ACBrETQ.ImprimirBarras(orNormal, barEAN13, 2, 2, 25, 10,'234567', 10, becSIM);
+      ACBrETQ.ImprimirBarras(orNormal, barEAN13, 2, 2, 25, 2,'234567', 10, becSIM);
     end;
    ACBrETQ.Imprimir();
    ACBrETQ.Desativar;

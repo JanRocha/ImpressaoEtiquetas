@@ -36,10 +36,6 @@ var
   i: Integer;
   lstProdutos: TStringList;
 begin
-  SG.Cells[0, 0] := 'Codígo';
-  SG.Cells[1, 0] := 'Descrição';
-  SG.Cells[2, 0] := 'Preco';
-  SG.Cells[3, 0] := 'Validade';
   if Tipo = 0  then
   begin
     SG.ColWidths[0] := 100;
@@ -47,13 +43,21 @@ begin
     SG.ColWidths[2] := 100;
     SG.ColWidths[3] := 100;
     SG.ColWidths[4] := 0;
+    SG.Cells[0, 0] := 'Codígo';
+    SG.Cells[1, 0] := 'Descrição';
+    SG.Cells[2, 0] := 'Preco';
+    SG.Cells[3, 0] := 'Validade';
   end
   else
   begin
     SG.ColWidths[0] := 50;
     SG.ColWidths[1] := 100;
     SG.ColWidths[2] := 50;
-    SG.ColWidths[3] := 0;
+    SG.ColWidths[3] := 50;
+    SG.Cells[0, 0] := 'Codígo';
+    SG.Cells[1, 0] := 'Descrição';
+    SG.Cells[2, 0] := 'Preco';
+    SG.Cells[3, 0] := 'Validade';
   end;
   if FileExists(GetCurrentDir + '\produtos.json') then
   begin
@@ -65,10 +69,18 @@ begin
       for i := 0 to oJSList.Count - 1 do
       begin
         js := oJSList.Child[i] as TlkJSONobject;
-        SG.Cells[0, i + 1] := js['codigo'].Value;
-        SG.Cells[1, i + 1] := js['descricao'].Value;
-        SG.Cells[2, i + 1] := js['preco'].Value;
-        SG.Cells[3, i + 1] := js['data_validade'].Value;
+        if Tipo = 0 then
+        begin
+          SG.Cells[0, i + 1] := js['codigo'].Value;
+          SG.Cells[1, i + 1] := js['descricao'].Value;
+          SG.Cells[2, i + 1] := js['preco'].Value;
+          SG.Cells[3, i + 1] := js['data_validade'].Value;
+        end
+        else
+        begin
+          SG.Cells[0, i + 1] := js['codigo'].Value;
+          SG.Cells[1, i + 1] := js['descricao'].Value;
+        end;
       end;
     finally
       oJSList.Free;

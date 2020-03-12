@@ -1,0 +1,7 @@
+
+--------------------------------------------------------------------------------
+ATIVAR - 12/03/20 18:55:01:438 - Modelo: Toledo - Porta: COM1         Device: BAUD=2400 DATA=8 PARITY=N STOP=1 HANDSHAKE= MAXBANDWIDTH=0 SENDBYTESCOUNT=0 SENDBYTESINTERVAL=0
+--------------------------------------------------------------------------------
+
+ - 18:55:03:307 TX -> [ENQ]
+              UltimoPesoLido: -9 - Resposta:  - Protocolo: N[227]o Definido

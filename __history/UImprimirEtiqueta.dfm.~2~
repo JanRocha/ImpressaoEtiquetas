@@ -45,16 +45,15 @@ object frmImprimirEtiqueta: TfrmImprimirEtiqueta
       Width = 321
       Height = 269
       Align = alLeft
-      ColCount = 4
+      ColCount = 3
       FixedCols = 0
-      RowCount = 1
+      RowCount = 2
       FixedRows = 0
       Options = [goRangeSelect, goRowSelect]
       ScrollBars = ssVertical
       TabOrder = 1
       OnSelectCell = SGSelectCell
       ColWidths = (
-        64
         64
         64
         64)

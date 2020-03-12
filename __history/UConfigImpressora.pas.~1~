@@ -77,7 +77,7 @@ begin
   ACBrETQ.Velocidade := StrToInt(eVelocidade.Text);
   ACBrETQ.BackFeed := TACBrETQBackFeed(cbBackFeed.ItemIndex);
   ACBrETQ.Unidade := etqMilimetros;
-  //ACBrETQ.Ativar;
+  ACBrETQ.Ativar;
 end;
 
 procedure TfrmConfigImpressora.btnConectarClick(Sender: TObject);
@@ -91,18 +91,17 @@ begin
    if ACBrETQ.Modelo in [etqPpla, etqPplb] then
     begin
       ACBrETQ.ImprimirTexto(orNormal, 2, 2, 2, 3, 3, edtLinha1.Text, 0, True);
-      //ACBrETQ.ImprimirTexto(orNormal, 3, 3, 2, 18, 32, edtLinha2.Text);
-      //ACBrETQ.ImprimirTexto(orNormal, 3, 4, 4, 15, 50, edtLinha3.Text);
+      ACBrETQ.ImprimirTexto(orNormal, 3, 3, 2, 18, 32, edtLinha2.Text);
+      ACBrETQ.ImprimirTexto(orNormal, 3, 4, 4, 15, 50, edtLinha3.Text);
       ACBrETQ.ImprimirBarras(orNormal, barEAN13, 2, 2, 13, 5, edtLinha4.Text, 10, becSIM);
     end
    else  //if Modelo = etqZPLII then
     begin
-      ACBrETQ.ImprimirTexto(orNormal, 12, 1, 1, 5, 5, edtLinha1.Text, 0, True);
-      ACBrETQ.ImprimirTexto(orNormal, 12, 1, 1, 10, 5, edtLinha2.Text);
-      ACBrETQ.ImprimirTexto(orNormal, 12, 1, 1, 15, 5, edtLinha2.Text);
-      ACBrETQ.ImprimirBarras(orNormal, barEAN13, 2, 2, 20, 5, edtLinha4.Text, 10, becSIM);
+      ACBrETQ.ImprimirTexto(orNormal, '0', 60, 60, 3, 3, edtLinha1.Text, 0, True);
+      ACBrETQ.ImprimirTexto(orNormal, 'A', 100, 100, 18, 32, edtLinha2.Text);
+      ACBrETQ.ImprimirTexto(orNormal, 'A', 120, 120, 15, 50, edtLinha2.Text);
+       ACBrETQ.ImprimirBarras(orNormal, barEAN13, 2, 2, 13, 5, edtLinha4.Text, 10, becSIM);
     end;
-    ACBrETQ.Imprimir();
    ACBrETQ.Desativar;
 end;
 

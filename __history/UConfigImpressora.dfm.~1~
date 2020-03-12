@@ -239,6 +239,7 @@ object frmConfigImpressora: TfrmConfigImpressora
     Width = 115
     Height = 32
     Caption = 'Imprimir teste'
+    Enabled = False
     TabOrder = 2
     OnClick = btnImprimirClick
   end

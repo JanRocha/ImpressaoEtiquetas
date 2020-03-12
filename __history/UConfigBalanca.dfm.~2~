@@ -99,8 +99,8 @@ object frmConfigBalanca: TfrmConfigBalanca
     TabOrder = 7
   end
   object sttResposta: TStaticText
-    Left = 213
-    Top = 70
+    Left = 211
+    Top = 68
     Width = 375
     Height = 32
     AutoSize = False
