@@ -23,7 +23,6 @@ type
     lbBackFeed: TLabel;
     lbTemperatura1: TLabel;
     cbModelo: TComboBox;
-    cbPorta: TComboBox;
     eAvanco: TEdit;
     cbDPI: TComboBox;
     eTemperatura: TEdit;
@@ -41,6 +40,7 @@ type
     Label3: TLabel;
     edtLinha4: TEdit;
     Label4: TLabel;
+    edtPorta: TEdit;
     procedure FormCreate(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
     procedure btnConectarClick(Sender: TObject);
@@ -69,14 +69,14 @@ implementation
 procedure TfrmConfigImpressora.ativarEtiqueta;
 begin
   ACBrETQ.Desativar;
-  ACBrETQ.DPI := TACBrETQDPI(cbDPI.ItemIndex);
-  ACBrETQ.Modelo := TACBrETQModelo(cbModelo.ItemIndex);
-  ACBrETQ.Porta := cbPorta.Text;
+  ACBrETQ.DPI           := TACBrETQDPI(cbDPI.ItemIndex);
+  ACBrETQ.Modelo        := TACBrETQModelo(cbModelo.ItemIndex);
+  ACBrETQ.Porta         := edtPorta.Text;
   ACBrETQ.LimparMemoria := ckMemoria.Checked;
-  ACBrETQ.Temperatura := StrToInt(eTemperatura.Text);
-  ACBrETQ.Velocidade := StrToInt(eVelocidade.Text);
-  ACBrETQ.BackFeed := TACBrETQBackFeed(cbBackFeed.ItemIndex);
-  ACBrETQ.Unidade := etqMilimetros;
+  ACBrETQ.Temperatura   := StrToInt(eTemperatura.Text);
+  ACBrETQ.Velocidade    := StrToInt(eVelocidade.Text);
+  ACBrETQ.BackFeed      := TACBrETQBackFeed(cbBackFeed.ItemIndex);
+  ACBrETQ.Unidade       := etqMilimetros;
   //ACBrETQ.Ativar;
 end;
 
@@ -108,14 +108,14 @@ end;
 
 procedure TfrmConfigImpressora.Button1Click(Sender: TObject);
 begin
-   FConfigIni.DPI:= cbDPI.ItemIndex;
-   FConfigIni.Modelo:= cbModelo.ItemIndex;
-   FConfigIni.Porta:= cbPorta.Text;
-   FConfigIni.LimparMemoria:= ckMemoria.Checked;
-   FConfigIni.Temperatura:= StrToInt( eTemperatura.Text);
-   FConfigIni.Velocidade:= StrToInt(eVelocidade.Text);
-   FConfigIni.BackFeed:= cbBackFeed.ItemIndex;
-   FConfigIni.Unidade:= 0;
+   FConfigIni.DPI           := cbDPI.ItemIndex;
+   FConfigIni.Modelo        := cbModelo.ItemIndex;
+   FConfigIni.Porta         := edtPorta.Text;
+   FConfigIni.LimparMemoria := ckMemoria.Checked;
+   FConfigIni.Temperatura   := StrToInt( eTemperatura.Text);
+   FConfigIni.Velocidade    := StrToInt(eVelocidade.Text);
+   FConfigIni.BackFeed      := cbBackFeed.ItemIndex;
+   FConfigIni.Unidade       := 0;
    FFuncoes.GravarINI('IMPRESSORA.INI','CONFIG',FConfigIni);
 end;
 
@@ -137,7 +137,7 @@ begin
   For L := Low(TACBrETQBackFeed) to High(TACBrETQBackFeed) do
     cbBackFeed.Items.Add(GetEnumName(TypeInfo(TACBrETQBackFeed), integer(L)));
 
-  ACBrETQ.Device.AcharPortasSeriais(cbPorta.Items);
+ { ACBrETQ.Device.AcharPortasSeriais(cbPorta.Items);
   cbPorta.Items.Add('LPT1');
   cbPorta.Items.Add('LPT2');
   cbPorta.Items.Add('LPT3');
@@ -147,10 +147,10 @@ begin
   cbPorta.Items.Add('/dev/ttyUSB1');
   cbPorta.Items.Add('c:\temp\etq.txt');
   cbPorta.Items.Add('/tmp/etq.txt');
-
+  }
   cbDPI.ItemIndex := 0;
   cbModelo.ItemIndex := 1;
-  cbPorta.ItemIndex := 0;
+ // cbPorta.ItemIndex := 0;
 end;
 
 procedure TfrmConfigImpressora.FormCreate(Sender: TObject);
@@ -175,17 +175,14 @@ end;
 
 procedure TfrmConfigImpressora.LerConfigINI;
 begin
-  FConfigIni:= TConfigImpressoraINI(FFuncoes.SerializarINI('IMPRESSORA.INI','CONFIG',FConfigIni));
-
-  cbModelo.ItemIndex:=  FConfigIni.Modelo;
-  cbPorta.Items.Add(FConfigIni.Porta);
-  cbPorta.ItemIndex:=cbPorta.Items.Count;
-  cbDPI.ItemIndex:= FConfigIni.DPI;
-  cbBackFeed.ItemIndex:= FConfigIni.BackFeed;
-  ckMemoria.Checked:= FConfigIni.LimparMemoria;
-  eVelocidade.Text:= IntToStr( FConfigIni.Velocidade);
-  eAvanco.Text:= IntToStr(FConfigIni.Avanco);
-  eVelocidade.Text:= IntToStr(FConfigIni.Velocidade);
+  FConfigIni           := TConfigImpressoraINI(FFuncoes.SerializarINI('IMPRESSORA.INI','CONFIG',FConfigIni));
+  cbModelo.ItemIndex   := FConfigIni.Modelo;
+  edtPorta.Text        := FConfigIni.Porta;
+  cbDPI.ItemIndex      := FConfigIni.DPI;
+  cbBackFeed.ItemIndex := FConfigIni.BackFeed;
+  ckMemoria.Checked    := FConfigIni.LimparMemoria;
+  eVelocidade.Text     := IntToStr( FConfigIni.Velocidade);
+  eAvanco.Text         := IntToStr(FConfigIni.Avanco);
 end;
 
 end.

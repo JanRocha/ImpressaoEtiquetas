@@ -221,7 +221,6 @@ object frmConfigBalanca: TfrmConfigBalanca
       Top = 65
       Width = 145
       Height = 21
-      ItemIndex = 0
       TabOrder = 1
       Text = 'COM1'
       Items.Strings = (

@@ -104,22 +104,22 @@ begin
     ACBrBAL1.Desativar;
 
   // configura porta de comunicação
-  ACBrBAL1.Modelo := TACBrBALModelo(cmbBalanca.ItemIndex);
+  ACBrBAL1.Modelo           := TACBrBALModelo(cmbBalanca.ItemIndex);
   ACBrBAL1.Device.HandShake := TACBrHandShake(cmbHandShaking.ItemIndex);
-  ACBrBAL1.Device.Parity := TACBrSerialParity(cmbParity.ItemIndex);
-  ACBrBAL1.Device.Stop := TACBrSerialStop(cmbStopBits.ItemIndex);
-  ACBrBAL1.Device.Data := StrToInt(cmbDataBits.Text);
-  ACBrBAL1.Device.Baud := StrToInt(cmbBaudRate.Text);
-  ACBrBAL1.Device.Porta := cmbPortaSerial.Text;
+  ACBrBAL1.Device.Parity    := TACBrSerialParity(cmbParity.ItemIndex);
+  ACBrBAL1.Device.Stop      := TACBrSerialStop(cmbStopBits.ItemIndex);
+  ACBrBAL1.Device.Data      := StrToInt(cmbDataBits.Text);
+  ACBrBAL1.Device.Baud      := StrToInt(cmbBaudRate.Text);
+  ACBrBAL1.Device.Porta     := cmbPortaSerial.Text;
   ACBrBAL1.ArqLOG :=FormatDateTime('DD-MM-YYYY', Now) + '_'+ ExtractFileName(Application.ExeName);
 
   // Conecta com a balança
   ACBrBAL1.Ativar;
 
-  btnConectar.Enabled := false;
-  Panel1.Enabled := false;
-  btnDesconectar.Enabled := true;
-  btnLerPeso.Enabled := true;
+  btnConectar.Enabled       := false;
+  Panel1.Enabled            := false;
+  btnDesconectar.Enabled    := true;
+  btnLerPeso.Enabled        := true;
 end;
 
 procedure TfrmConfigBalanca.btnLerPesoClick(Sender: TObject);
@@ -138,15 +138,15 @@ end;
 procedure TfrmConfigBalanca.Button1Click(Sender: TObject);
 begin
   if not(Assigned(FConfigBalanca)) then
-    FConfigBalanca := TConfigBalancaINI.Create;
-  FConfigBalanca.Modelo := cmbBalanca.ItemIndex;
-  FConfigBalanca.Porta  := cmbPortaSerial.Text;
-  FConfigBalanca.BaudRate:= StrToInt(cmbBaudRate.Text);
-  FConfigBalanca.DataBits := StrToInt(cmbDataBits.Text);
-  FConfigBalanca.Parity:= cmbParity.ItemIndex;
-  FConfigBalanca.StopBits := cmbStopBits.ItemIndex;
-  FConfigBalanca.Handshaking := cmbHandShaking.ItemIndex;
-  FConfigBalanca.TimeOut     := StrToIntDef(edtTimeOut.Text,2000);
+    FConfigBalanca                := TConfigBalancaINI.Create;
+  FConfigBalanca.Modelo           := cmbBalanca.ItemIndex;
+  FConfigBalanca.Porta            := cmbPortaSerial.Text;
+  FConfigBalanca.BaudRate         := StrToInt(cmbBaudRate.Text);
+  FConfigBalanca.DataBits         := StrToInt(cmbDataBits.Text);
+  FConfigBalanca.Parity           := cmbParity.ItemIndex;
+  FConfigBalanca.StopBits         := cmbStopBits.ItemIndex;
+  FConfigBalanca.Handshaking      := cmbHandShaking.ItemIndex;
+  FConfigBalanca.TimeOut          := StrToIntDef(edtTimeOut.Text,2000);
   FConfigBalanca.MonitorarBalanca := StrToBool( IfThen(chbMonitorar.checked, 'True', 'False'));
   FFuncao.GravarINI('BALANCA.INI','CONFIG',FConfigBalanca);
 end;
@@ -154,11 +154,10 @@ end;
 procedure TfrmConfigBalanca.btnDesconectarClick(Sender: TObject);
 begin
   ACBrBAL1.Desativar;
-
-  btnConectar.Enabled := true;
-  Panel1.Enabled := true;
+  btnConectar.Enabled    := true;
+  Panel1.Enabled         := true;
   btnDesconectar.Enabled := false;
-  btnLerPeso.Enabled := false;
+  btnLerPeso.Enabled     := false;
 end;
 
 procedure TfrmConfigBalanca.edtTimeOutKeyPress(Sender: TObject; var Key: Char);
@@ -176,22 +175,20 @@ procedure TfrmConfigBalanca.FormCreate(Sender: TObject);
 var
   I: TACBrBALModelo;
 begin
-  FFuncao := TFuncoes.Create;
+  FFuncao        := TFuncoes.Create;
   FConfigBalanca := TConfigBalancaINI.Create;
-
-  FConfigBalanca := TConfigBalancaINI
-    (FFuncao.SerializarINI('BALANCA.INI', 'CONFIG', FConfigBalanca));
+  FConfigBalanca := TConfigBalancaINI(FFuncao.SerializarINI('BALANCA.INI', 'CONFIG', FConfigBalanca));
   cmbBalanca.Items.Clear;
   For I := Low(TACBrBALModelo) to High(TACBrBALModelo) do
     cmbBalanca.Items.Add(GetEnumName(TypeInfo(TACBrBALModelo), Integer(I)));
-  cmbBalanca.ItemIndex := FConfigBalanca.Modelo;
-  cmbPortaSerial.ItemIndex:= cmbBalanca.Items.IndexOf(FConfigBalanca.Porta);
-  cmbBaudRate.ItemIndex:= FConfigBalanca.BaudRate;
-  cmbDataBits.ItemIndex:= FConfigBalanca.BaudRate;
-  cmbHandShaking.ItemIndex:= FConfigBalanca.Handshaking;
-  cmbParity.ItemIndex:= FConfigBalanca.Parity;
-  cmbStopBits.ItemIndex:= FConfigBalanca.StopBits;
-  chbMonitorar.Checked:= FConfigBalanca.MonitorarBalanca;
+  cmbBalanca.ItemIndex     := FConfigBalanca.Modelo;
+  cmbPortaSerial.ItemIndex := cmbPortaSerial.Items.IndexOf(FConfigBalanca.Porta);
+  cmbBaudRate.ItemIndex    := cmbBaudRate.items.IndexOf(inttostr(FConfigBalanca.BaudRate));
+  cmbDataBits.ItemIndex    := cmbDataBits.items.IndexOf(inttostr(FConfigBalanca.DataBits));
+  cmbHandShaking.ItemIndex := FConfigBalanca.Handshaking;
+  cmbParity.ItemIndex      := FConfigBalanca.Parity;
+  cmbStopBits.ItemIndex    := FConfigBalanca.StopBits;
+  chbMonitorar.Checked     := FConfigBalanca.MonitorarBalanca;
 end;
 
 procedure TfrmConfigBalanca.FormDestroy(Sender: TObject);

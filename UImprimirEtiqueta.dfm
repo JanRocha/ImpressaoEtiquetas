@@ -61,7 +61,7 @@ object frmImprimirEtiqueta: TfrmImprimirEtiqueta
     end
     object GroupBox3: TGroupBox
       Left = 329
-      Top = 68
+      Top = 64
       Width = 262
       Height = 50
       Caption = 'Peso'

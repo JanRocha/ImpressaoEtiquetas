@@ -134,7 +134,7 @@ object frmConfigImpressora: TfrmConfigImpressora
       Height = 21
       Style = csDropDownList
       ItemIndex = 3
-      TabOrder = 5
+      TabOrder = 4
       Text = 'etqZPLII'
       Items.Strings = (
         'etqNenhuma'
@@ -143,29 +143,12 @@ object frmConfigImpressora: TfrmConfigImpressora
         'etqZPLII'
         'etqEpl2')
     end
-    object cbPorta: TComboBox
-      Left = 10
-      Top = 38
-      Width = 233
-      Height = 21
-      TabOrder = 0
-      Text = 'C:\TEMP\ETQ.TXT'
-      Items.Strings = (
-        'LPT1'
-        'LPT2'
-        'COM1'
-        'COM2'
-        'COM3'
-        '\\localhost\ZEBRA'
-        '\\127.0.0.1\ARGOX'
-        'Digite a porta')
-    end
     object eAvanco: TEdit
       Left = 10
       Top = 133
       Width = 115
       Height = 21
-      TabOrder = 3
+      TabOrder = 2
     end
     object cbDPI: TComboBox
       Left = 10
@@ -174,7 +157,7 @@ object frmConfigImpressora: TfrmConfigImpressora
       Height = 21
       Style = csDropDownList
       ItemIndex = 0
-      TabOrder = 6
+      TabOrder = 5
       Text = 'dpi203'
       Items.Strings = (
         'dpi203'
@@ -186,7 +169,7 @@ object frmConfigImpressora: TfrmConfigImpressora
       Top = 84
       Width = 115
       Height = 21
-      TabOrder = 1
+      TabOrder = 0
       Text = '10'
     end
     object cbBackFeed: TComboBox
@@ -196,7 +179,7 @@ object frmConfigImpressora: TfrmConfigImpressora
       Height = 21
       Style = csDropDownList
       ItemIndex = 0
-      TabOrder = 7
+      TabOrder = 6
       Text = 'bfNone'
       Items.Strings = (
         'bfNone'
@@ -209,7 +192,7 @@ object frmConfigImpressora: TfrmConfigImpressora
       Width = 115
       Height = 21
       Hint = 'Utilize '#39'-1'#39' para usar velocidade padr'#227'o da impressora'
-      TabOrder = 2
+      TabOrder = 1
       Text = '-1'
     end
     object ckMemoria: TCheckBox
@@ -220,7 +203,14 @@ object frmConfigImpressora: TfrmConfigImpressora
       Caption = 'Limpar Mem'#243'ria'
       Checked = True
       State = cbChecked
-      TabOrder = 4
+      TabOrder = 3
+    end
+    object edtPorta: TEdit
+      Left = 10
+      Top = 40
+      Width = 233
+      Height = 21
+      TabOrder = 7
     end
   end
   object Button1: TButton
