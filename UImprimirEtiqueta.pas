@@ -184,8 +184,7 @@ begin
   FConfigBAL := TConfigBalancaINI.Create;
   FConfigImp := TConfigImpressoraINI.Create;
   FProduto.CarregarGrid(SG, 1);
-  FLog := FormatDateTime('DD-MM-YYYY', Now) + '_' + ExtractFileName
-    (Application.ExeName);
+  FLog := FormatDateTime('DD-MM-YYYY', Now) + '_' + StringReplace(ExtractFileName(Application.ExeName),'.exe','',[rfReplaceAll]) + '.log';
   carregarConfigBalanca();
   CarregarConfigImp();
 end;
