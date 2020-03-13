@@ -91,30 +91,6 @@ end;
 procedure TfrmCadastro.btnGravarClick(Sender: TObject);
 var i:integer;
 begin
-  if edtCodigo.Text = '' then
-  begin
-    Application.MessageBox('campo esta vazio verifique','Atenção');
-    edtCodigo.SetFocus;
-    exit;
-  end;
-  if edtDescricao.Text = '' then
-  begin
-    Application.MessageBox('campo esta vazio verifique','Atenção');
-    edtDescricao.SetFocus;
-    exit;
-  end;
-  if edtValorUnitario.Text = '' then
-  begin
-    Application.MessageBox('campo esta vazio verifique','Atenção');
-    edtValorUnitario.SetFocus;
-    exit;
-  end;
-  if edtDias.Text = '' then
-  begin
-    Application.MessageBox('campo esta vazio verifique','Atenção');
-    edtDias.SetFocus;
-    exit;
-  end;
   if FEditar then
   begin
     SG.Cells[0, FLinha ] := edtCodigo.Text;

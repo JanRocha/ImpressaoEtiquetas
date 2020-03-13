@@ -159,6 +159,8 @@ object frmCadastro: TfrmCadastro
         ParentDoubleBuffered = False
         TabOrder = 2
         OnClick = btnGravarClick
+        ExplicitLeft = 522
+        ExplicitTop = 6
       end
       object btnEditar: TBitBtn
         Left = 366

@@ -45,6 +45,7 @@ type
     Fpreco: string;
     procedure carregarConfigBalanca();
     procedure CarregarConfigImp();
+    function GerarEtiqueta(codigo, valor:string):string;
   public
     { Public declarations }
   end;
@@ -103,7 +104,7 @@ begin
   ACBrBAL1.LePeso(FConfigBAL.TimeOut);
   ACBrETQ.Ativar;
   cPreco:= StrToCurr(lblPeso.Caption) * StrToCurr(Fpreco);
-  sPreco:=  CurrToStr( cPreco);
+  sPreco:=  FormatCurr('0.00', cPreco);
    if ACBrETQ.Modelo in [etqPpla, etqPplb] then
     begin
       ACBrETQ.ImprimirTexto(orNormal, 2, 2, 2, 3, 3, lblDescricaoProduto.Caption, 0, True);
@@ -120,14 +121,14 @@ begin
     begin
       ACBrETQ.ImprimirTexto(orNormal, '0', 40, 40, 3,  2, lblDescricaoProduto.Caption, 0, True);
       ACBrETQ.ImprimirTexto(orNormal, '0', 5 ,  5, 6,  0, '________________________________________________________________________');
-      ACBrETQ.ImprimirTexto(orNormal, '0', 20, 20, 9,  2, 'Peso       ' +lblPeso.Caption);
-      ACBrETQ.ImprimirTexto(orNormal, '0', 20, 20, 12, 2, 'R$ / kg   ' + FormatCurr('#0.00', StrToCurr(Fpreco)), 0, True);
-      ACBrETQ.ImprimirTexto(orNormal, '0', 40, 20, 17, 2,'Total    R$ ' + FormatCurr('#0.00', StrToCurr(sPreco)));
+      ACBrETQ.ImprimirTexto(orNormal, '0', 20, 20, 9,  2, 'PESO       ' +lblPeso.Caption);
+      ACBrETQ.ImprimirTexto(orNormal, '0', 20, 20, 12, 2, 'R$ / KG    ' + FormatCurr('#0.00', StrToCurr(Fpreco)), 0, True);
+      ACBrETQ.ImprimirTexto(orNormal, '0', 40, 20, 17, 2, 'TOTAL   R$ ' + FormatCurr('#0.00', StrToCurr(sPreco)));
       ACBrETQ.ImprimirTexto(orNormal, '0',  5,  5, 19, 0, '________________________________________________________________________');
       ACBrETQ.ImprimirTexto(orNormal, '0', 15, 15, 21, 2, 'D. EMB. '+ FormatDateTime('dd.mm.yy',now ));
       ACBrETQ.ImprimirTexto(orNormal, '0', 15, 15, 23, 2, 'D. VAL. '+ FormatDateTime('dd.mm.yy',IncDay(now,StrToInt(FValidade )) ));
       //ACBrETQ.ImprimirTexto(orNormal, '0', 10, 10, 21, 2, 'data hora '+ FormatDateTime('hh:mm',now ));
-      ACBrETQ.ImprimirBarras(orNormal, barEAN13, 2, 2, 25, 2,'234567', 10, becSIM);
+      ACBrETQ.ImprimirBarras(orNormal, barEAN13, 2, 2, 25, 10,GerarEtiqueta(FCodigo,sPreco), 10, becSIM);
     end;
    ACBrETQ.Imprimir();
    ACBrETQ.Desativar;
@@ -183,10 +184,16 @@ begin
   FConfigBAL := TConfigBalancaINI.Create;
   FConfigImp := TConfigImpressoraINI.Create;
   FProduto.CarregarGrid(SG, 1);
-  FLog := FormatDateTime('DD-MM-YYYY', Now) + '_' + ExtractFileName
-    (Application.ExeName);
+  FLog := FormatDateTime('DD-MM-YYYY', Now) + '_' + StringReplace(ExtractFileName(Application.ExeName),'.exe','',[rfReplaceAll]) + '.log';
   carregarConfigBalanca();
   CarregarConfigImp();
+end;
+
+function TfrmImprimirEtiqueta.GerarEtiqueta(codigo, valor: string): string;
+begin
+   valor:= StringReplace(valor,',','',[rfReplaceAll]);
+   Result:= '2'+ FormatFloat('000000',StrToFloat(codigo));
+   Result:= Result + FormatFloat('00000',StrToFloat(valor))+'4';
 end;
 
 procedure TfrmImprimirEtiqueta.SGSelectCell(Sender: TObject; ACol,

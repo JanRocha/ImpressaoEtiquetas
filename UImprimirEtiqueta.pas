@@ -119,7 +119,7 @@ begin
     end
    else  //if Modelo = etqZPLII then
     begin
-      ACBrETQ.ImprimirTexto(orNormal, '0', 40, 40, 3,  2, lblDescricaoProduto.Caption, 0, True);
+      ACBrETQ.ImprimirTexto(orNormal, '0', 25, 40, 3,  2, lblDescricaoProduto.Caption, 0, True);
       ACBrETQ.ImprimirTexto(orNormal, '0', 5 ,  5, 6,  0, '________________________________________________________________________');
       ACBrETQ.ImprimirTexto(orNormal, '0', 20, 20, 9,  2, 'PESO       ' +lblPeso.Caption);
       ACBrETQ.ImprimirTexto(orNormal, '0', 20, 20, 12, 2, 'R$ / KG    ' + FormatCurr('#0.00', StrToCurr(Fpreco)), 0, True);
